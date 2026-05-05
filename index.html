@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Formulário de Cadastro | Sindpol &amp; Grupo Blue</title>
+  <link href="css/style.css" rel="stylesheet" />
+  <link href="css/responsivo.css" rel="stylesheet" />
+</head>
+
+<body>
+  <!-- TELA INICIAL -->
+  <main class="welcome-screen" id="welcome-screen">
+    <section class="welcome-card">
+      <div class="welcome-header">
+        <img alt="Cabeçalho inicial" class="welcome-header-image" src="img/logoinicial.png" />
+      </div>
+      <div class="welcome-hero">
+        <h1>CLUBE DE BENEFÍCIOS SINDPOL</h1>
+        <h2>PLANO ODONTOLÓGICO E MAIS BLUE</h2>
+      </div>
+      <div id="form-wrapper">
+        <form class="form-page active-form" id="cadastroForm1">
+
+          <section class="form-section component-section">
+            <div class="section-title-row">
+              <h2>Dados do Componente</h2>
+              <button class="btn btn-value valor-pessoa-btn" type="button" disabled>Valor por pessoa: R$ 40,00</button>
+            </div>
+            <div class="grid">
+              <div class="field">
+                <label for="f1_nome">Nome:</label>
+                <input id="f1_nome" name="nome" required="" type="text" />
+              </div>
+              <div class="field">
+                <label for="f1_rg">RG:</label>
+                <input id="f1_rg" name="rg" type="text" />
+              </div>
+              <div class="field">
+                <label for="f1_cpf">CPF:</label>
+                <input id="f1_cpf" name="cpf" type="text" />
+              </div>
+              <div class="field">
+                <label for="f1_sexo">Sexo:</label>
+                <select id="f1_sexo" name="sexo" required="">
+                  <option value="">Selecione</option>
+                  <option value="Feminino">Feminino</option>
+                  <option value="Masculino">Masculino</option>
+                  <option value="Outro">Outro</option>
+                  <option value="Prefiro não responder">Prefiro não responder</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="f1_admissao">Data da admissão:</label>
+                <input id="f1_admissao" name="admissao" type="date" />
+              </div>
+              <div class="field">
+                <label for="f1_nascimento">Data do nascimento:</label>
+                <input id="f1_nascimento" name="nascimento" type="date" />
+              </div>
+              <div class="field">
+                <label for="f1_tipoSanguineo">Tipo sanguíneo:</label>
+                <select id="f1_tipoSanguineo" name="tipoSanguineo">
+                  <option value="">Selecione</option>
+                  <option>A+</option>
+                  <option>A-</option>
+                  <option>B+</option>
+                  <option>B-</option>
+                  <option>AB+</option>
+                  <option>AB-</option>
+                  <option>O+</option>
+                  <option>O-</option>
+                  <option>Não sei</option>
+                </select>
+              </div>
+              <div class="field full">
+                <label for="f1_endereco">Endereço:</label>
+                <input id="f1_endereco" name="endereco" type="text" />
+              </div>
+              <div class="field">
+                <label for="f1_cep">CEP:</label>
+                <input id="f1_cep" maxlength="9" name="cep" type="text" />
+              </div>
+              <div class="field">
+                <label for="f1_bairro">Bairro:</label>
+                <input id="f1_bairro" name="bairro" type="text" />
+              </div>
+              <div class="field">
+                <label for="f1_cidade">Cidade:</label>
+                <input id="f1_cidade" name="cidade" type="text" />
+              </div>
+              <div class="field">
+                <label for="f1_uf">UF:</label>
+                <input id="f1_uf" maxlength="2" name="uf" type="text" />
+              </div>
+              <div class="field">
+                <label for="f1_telefone">Telefone WhatsApp:</label>
+                <input id="f1_telefone" name="telefone" type="text" />
+              </div>
+              <div class="field">
+                <label for="f1_email">E-mail:</label>
+                <input id="f1_email" name="email" required="" type="email" />
+              </div>
+              <div class="field">
+                <label for="f1_estadoCivil">Estado civil:</label>
+                <select id="f1_estadoCivil" name="estadoCivil">
+                  <option value="">Selecione</option>
+                  <option>Solteiro(a)</option>
+                  <option>Casado(a)</option>
+                  <option>União Estável</option>
+                  <option>Divorciado(a)</option>
+                  <option>Viúvo(a)</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="f1_cargo">Cargo:</label>
+                <input id="f1_cargo" name="cargo" type="text" />
+              </div>
+              <div class="field">
+                <label for="f1_lotacao">Lotação:</label>
+                <input id="f1_lotacao" name="lotacao" type="text" />
+              </div>
+              <div class="field">
+                <label for="f1_situacaoFuncional">Situação funcional:</label>
+                <select id="f1_situacaoFuncional" name="situacaoFuncional">
+                  <option value="">Selecione</option>
+                  <option value="Ativo">Ativo</option>
+                  <option value="Aposentado">Aposentado</option>
+                </select>
+              </div>
+            </div>
+          </section>
+
+          <section class="form-section" id="dados-pagador-section">
+            <h2>Dados do Responsável Financeiro</h2>
+            <div class="grid">
+              <div class="field">
+                <label for="pagador_nome">Nome:</label>
+                <input id="pagador_nome" name="pagador_nome" type="text" />
+              </div>
+              <div class="field">
+                <label for="pagador_rg">RG:</label>
+                <input id="pagador_rg" name="pagador_rg" type="text" />
+              </div>
+              <div class="field">
+                <label for="pagador_cpf">CPF:</label>
+                <input id="pagador_cpf" name="pagador_cpf" type="text" />
+              </div>
+              <div class="field">
+                <label for="pagador_sexo">Sexo:</label>
+                <select id="pagador_sexo" name="pagador_sexo">
+                  <option value="">Selecione</option>
+                  <option value="Feminino">Feminino</option>
+                  <option value="Masculino">Masculino</option>
+                  <option value="Outro">Outro</option>
+                  <option value="Prefiro não responder">Prefiro não responder</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="pagador_admissao">Data da admissão:</label>
+                <input id="pagador_admissao" name="pagador_admissao" type="date" />
+              </div>
+              <div class="field">
+                <label for="pagador_nascimento">Data do nascimento:</label>
+                <input id="pagador_nascimento" name="pagador_nascimento" type="date" />
+              </div>
+              <div class="field">
+                <label for="pagador_tipoSanguineo">Tipo sanguíneo:</label>
+                <select id="pagador_tipoSanguineo" name="pagador_tipoSanguineo">
+                  <option value="">Selecione</option>
+                  <option>A+</option>
+                  <option>A-</option>
+                  <option>B+</option>
+                  <option>B-</option>
+                  <option>AB+</option>
+                  <option>AB-</option>
+                  <option>O+</option>
+                  <option>O-</option>
+                  <option>Não sei</option>
+                </select>
+              </div>
+              <div class="field full">
+                <label for="pagador_endereco">Endereço:</label>
+                <input id="pagador_endereco" name="pagador_endereco" type="text" />
+              </div>
+              <div class="field">
+                <label for="pagador_cep">CEP:</label>
+                <input id="pagador_cep" maxlength="9" name="pagador_cep" type="text" />
+              </div>
+              <div class="field">
+                <label for="pagador_bairro">Bairro:</label>
+                <input id="pagador_bairro" name="pagador_bairro" type="text" />
+              </div>
+              <div class="field">
+                <label for="pagador_cidade">Cidade:</label>
+                <input id="pagador_cidade" name="pagador_cidade" type="text" />
+              </div>
+              <div class="field">
+                <label for="pagador_uf">UF:</label>
+                <input id="pagador_uf" maxlength="2" name="pagador_uf" type="text" />
+              </div>
+              <div class="field">
+                <label for="pagador_telefone">Telefone WhatsApp:</label>
+                <input id="pagador_telefone" name="pagador_telefone" type="text" />
+              </div>
+              <div class="field">
+                <label for="pagador_email">E-mail:</label>
+                <input id="pagador_email" name="pagador_email" type="email" />
+              </div>
+              <div class="field">
+                <label for="pagador_estadoCivil">Estado civil:</label>
+                <select id="pagador_estadoCivil" name="pagador_estadoCivil">
+                  <option value="">Selecione</option>
+                  <option>Solteiro(a)</option>
+                  <option>Casado(a)</option>
+                  <option>União Estável</option>
+                  <option>Divorciado(a)</option>
+                  <option>Viúvo(a)</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="pagador_cargo">Cargo:</label>
+                <input id="pagador_cargo" name="pagador_cargo" type="text" />
+              </div>
+              <div class="field">
+                <label for="pagador_lotacao">Lotação:</label>
+                <input id="pagador_lotacao" name="pagador_lotacao" type="text" />
+              </div>
+              <div class="field">
+                <label for="pagador_situacaoFuncional">Situação funcional:</label>
+                <select id="pagador_situacaoFuncional" name="pagador_situacaoFuncional">
+                  <option value="">Selecione</option>
+                  <option value="Ativo">Ativo</option>
+                  <option value="Aposentado">Aposentado</option>
+                </select>
+              </div>
+            </div>
+          </section>
+          <section class="form-section">
+            <h2>Dados dos Componentes Adicionais</h2>
+            <div id="componentes-container"></div>
+            <button class="btn btn-secondary" id="addComponenteBtn" type="button">
+              + Adicionar Componente
+            </button>
+          </section>
+          <section class="form-section total-section">
+            <h2>Valor total</h2>
+            <div class="percentage-box">
+              <button class="btn btn-lime" id="gerarTotalBtn" type="button">
+                Gerar Total
+              </button>
+              <div class="percentage-result">
+                <label for="valorTotal">Total:</label>
+                <output id="valorTotal">R$ 0,00</output>
+              </div>
+            </div>
+          </section>
+          <section class="form-actions">
+            <button class="btn btn-primary submit-btn" type="submit">
+              Enviar formulário
+            </button>
+          </section>
+          <section class="manual-sign-footer form-manual-footer">
+            <div class="manual-sign-item">
+              <div class="manual-sign-line"></div>
+              <div class="manual-sign-label">SINDICALIZADO (A)</div>
+            </div>
+            <div class="manual-sign-item">
+              <div class="manual-sign-line"></div>
+              <div class="manual-sign-label">
+                <span class="sind-red">SIND</span><span class="pol-bold">POL</span><span>/PA</span>
+              </div>
+            </div>
+          </section>
+        </form>
+      </div>
+
+    </section>
+  </main>
+  <!-- ÁREA DOS FORMULÁRIOS -->
+
+  <script src="js/script.js"></script>
+</body>
+
+</html>

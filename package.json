@@ -1,0 +1,17 @@
+{
+  "name": "sindpool-formulario-assinafy",
+  "version": "1.0.0",
+  "description": "Sistema de formulário com geração de PDF, upload e assinatura digital via Assinafy",
+  "type": "module",
+  "scripts": {
+    "dev": "vercel dev",
+    "start": "vercel dev"
+  },
+  "dependencies": {
+    "form-data": "^4.0.0",
+    "node-fetch": "^3.3.2"
+  },
+  "engines": {
+    "node": "18.x"
+  }
+}
