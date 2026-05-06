@@ -1,14 +1,26 @@
 # Integração Assinafy — Sindpol
 
-Fluxo implementado:
+Este projeto usa o PDF oficial `docs/ficha-sindpol-template.pdf` como modelo. Os dados enviados pelo formulário são carimbados nos campos em branco desse PDF, mantendo o layout original da ficha do Clube de Benefícios Sindpol.
 
-1. Frontend envia o formulário para `/api/enviar-formulario`.
-2. A rota Node.js/Vercel valida e normaliza os dados.
-3. O backend gera um PDF preenchido.
-4. O PDF é enviado para a Assinafy.
-5. O backend cria o assinante principal.
-6. O backend solicita assinatura no modo `virtual` ou `collect`.
-7. A rota `/api/webhook-assinafy` recebe status/eventos da assinatura.
+## Fluxo implementado
+
+```txt
+Frontend
+↓
+POST /api/enviar-formulario
+↓
+Gerar PDF preenchido a partir de docs/ficha-sindpol-template.pdf
+↓
+Enviar PDF para Assinafy
+↓
+Criar assinante contratante
+↓
+Criar assinante administrador/sindicalizado
+↓
+Solicitar assinatura virtual ou collect
+↓
+POST /api/webhook-assinafy para acompanhar status
+```
 
 ## Rotas
 
@@ -17,15 +29,16 @@ POST /api/enviar-formulario
 POST /api/webhook-assinafy
 ```
 
-## Variáveis de ambiente obrigatórias
+## Variáveis obrigatórias na Vercel
 
 ```env
 ASSINAFY_API_KEY=
 ASSINAFY_ACCOUNT_ID=
 ASSINAFY_BASE_URL=https://api.assinafy.com.br/v1
+ADMIN_EMAILS=gomeserosiane.dev@gmail.com
 ```
 
-Use sandbox durante desenvolvimento:
+Para sandbox, use a URL sandbox confirmada no painel/documentação da sua conta:
 
 ```env
 ASSINAFY_BASE_URL=https://sandbox.assinafy.com.br/v1
@@ -33,53 +46,61 @@ ASSINAFY_BASE_URL=https://sandbox.assinafy.com.br/v1
 
 ## Assinatura virtual
 
-Modo padrão:
+No modo virtual, contratante e admin/sindicalizado recebem o mesmo PDF para assinatura digital. A assinatura não é presa em coordenadas específicas do PDF.
 
 ```env
 ASSINAFY_SIGNATURE_METHOD=virtual
 ASSINAFY_NOTIFICATION_METHOD=Email
 ```
 
-Também pode usar WhatsApp:
+Para WhatsApp:
 
 ```env
 ASSINAFY_NOTIFICATION_METHOD=Whatsapp
+ADMIN_WHATSAPPS=5591984536649
 ```
 
 ## Assinatura collect
 
-Use quando quiser campo/posição específica no PDF.
+Use `collect` quando quiser posicionar o campo de assinatura embaixo das linhas do PDF:
+
+- Contratante: embaixo de `ASSINATURA DO(A) CONTRATANTE`.
+- Admin/Sindicalizado: embaixo de `ASSINATURA DO(A) SINDICALIZADO(A)`.
+
+Você precisa criar/configurar os campos na Assinafy e preencher os IDs:
 
 ```env
 ASSINAFY_SIGNATURE_METHOD=collect
-ASSINAFY_COLLECT_FIELD_ID=
+ASSINAFY_COLLECT_CONTRATANTE_FIELD_ID=
+ASSINAFY_COLLECT_SINDICALIZADO_FIELD_ID=
 ASSINAFY_COLLECT_PAGE_NUMBER=1
-ASSINAFY_COLLECT_LEFT=69
-ASSINAFY_COLLECT_TOP=720
-ASSINAFY_COLLECT_WIDTH=420
-ASSINAFY_COLLECT_HEIGHT=60
-ASSINAFY_COLLECT_FONT_SIZE=18
+
+ASSINAFY_COLLECT_CONTRATANTE_LEFT=45
+ASSINAFY_COLLECT_CONTRATANTE_TOP=665
+ASSINAFY_COLLECT_CONTRATANTE_WIDTH=210
+ASSINAFY_COLLECT_CONTRATANTE_HEIGHT=45
+
+ASSINAFY_COLLECT_SINDICALIZADO_LEFT=355
+ASSINAFY_COLLECT_SINDICALIZADO_TOP=665
+ASSINAFY_COLLECT_SINDICALIZADO_WIDTH=210
+ASSINAFY_COLLECT_SINDICALIZADO_HEIGHT=45
 ```
 
-Atenção: no modo `collect`, o documento precisa estar em `metadata_ready`. O backend já faz tentativas automáticas:
+O backend aguarda o documento chegar ao status `metadata_ready` antes de criar assinatura `collect`.
 
 ```env
 ASSINAFY_METADATA_MAX_ATTEMPTS=12
 ASSINAFY_METADATA_DELAY_MS=1500
 ```
 
-## Administradores / cópias
+## Administradores
+
+O primeiro contato em `ADMIN_EMAILS` ou `ADMIN_WHATSAPPS` vira o assinante admin/sindicalizado. Os demais entram como cópia, quando a Assinafy aceitar `copy_receivers`.
 
 ```env
+ADMIN_SIGNER_NAME=SINDPOL/PA
 ADMIN_EMAILS=gomeserosiane.dev@gmail.com,outro@email.com
-ADMIN_WHATSAPPS=5591984536649,5591999999999
-```
-
-Esses contatos são criados como signers/copy receivers na Assinafy. Para disparos externos adicionais, configure:
-
-```env
-NOTIFICATION_WEBHOOK_URL=
-NOTIFICATION_WEBHOOK_TOKEN=
+ADMIN_WHATSAPPS=5591984536649
 ```
 
 ## Webhook
@@ -104,18 +125,25 @@ x-assinafy-webhook-secret: SEU_SEGREDO
 Authorization: Bearer SEU_SEGREDO
 ```
 
-## Arquitetura
+## Deploy Vercel
 
-```txt
-/api
-  enviar-formulario.js
-  webhook-assinafy.js
-/lib
-  assinafyClient.js
-  formulario.js
-  notificacoes.js
-  pdf.js
-  utils.js
-/js
-  script.js
+O projeto está configurado para Node 24:
+
+```json
+"engines": {
+  "node": "24.x"
+}
+```
+
+Instale e teste localmente:
+
+```bash
+npm install
+vercel dev
+```
+
+Depois faça o deploy:
+
+```bash
+vercel --prod
 ```

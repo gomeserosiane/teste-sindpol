@@ -4,7 +4,8 @@
 // 2) Gera um PDF preenchido no backend;
 // 3) Envia o PDF para a Assinafy;
 // 4) Cria o assinante principal;
-// 5) Solicita assinatura virtual ou collect;
+// 5) Cria assinante do contratante e assinante(s) administrador(es);
+// 6) Solicita assinatura virtual ou collect para contratante e sindicalizado/admin;
 // 6) Retorna IDs/status para o front e deixa o webhook separado para acompanhamento.
 
 import { jsonResponse } from "../lib/utils.js";
@@ -30,7 +31,7 @@ export default async function handler(req, res) {
     const formulario = normalizarFormulario(req.body || {});
     validarFormulario(formulario);
 
-    const pdfBuffer = gerarPdfPreenchido(formulario);
+    const pdfBuffer = await gerarPdfPreenchido(formulario);
     const documento = await enviarPdfParaAssinafy(pdfBuffer, formulario);
     const assinante = await criarAssinante(formulario);
     const admins = await criarAssinantesAdministradores();
