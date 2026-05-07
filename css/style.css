@@ -292,8 +292,7 @@ textarea:focus {
   pointer-events: none;
 }
 
-
-/* Valor total */
+/* Valor total dentro da forma de pagamento */
 .percentage-box {
   display: flex;
   align-items: center;
@@ -302,7 +301,7 @@ textarea:focus {
 }
 
 .btn-lime {
-  background: #84cc16;
+  background: #b2f54d;
   color: #102000;
 }
 
@@ -333,12 +332,37 @@ textarea:focus {
 }
 
 
+
+.payment-title-row {
+  align-items: flex-start;
+}
+
+.payment-title-row .percentage-box {
+  margin-left: auto;
+  justify-content: flex-end;
+}
+
+.payment-title-row h2 {
+  flex: 0 0 auto;
+}
+
 /* Forma de pagamento */
 .payment-options {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 14px;
   margin-top: 8px;
+}
+
+.payment-note {
+  margin: 14px 0 0;
+  padding: 14px 16px;
+  border-left: 4px solid #84cc16;
+  border-radius: 12px;
+  background: #f8fafc;
+  color: #475569;
+  font-size: 0.95rem;
+  line-height: 1.55;
 }
 
 .payment-card {

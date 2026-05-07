@@ -243,22 +243,19 @@
             </button>
           </section>
 
-          <section class="form-section total-section">
-            <h2>Valor total</h2>
-            <div class="percentage-box">
-              <button class="btn btn-lime" id="gerarTotalBtn" type="button">
-                Gerar Total
-              </button>
-              <div class="percentage-result">
-                <label for="valorTotal">Total:</label>
-                <output id="valorTotal">R$ 0,00</output>
+          <section class="form-section payment-section">
+            <div class="section-title-row payment-title-row">
+              <h2>Forma de pagamento</h2>
+              <div class="percentage-box">
+                <button class="btn btn-lime" id="gerarTotalBtn" type="button">
+                  Gerar Total
+                </button>
+                <div class="percentage-result">
+                  <label for="valorTotal">Total:</label>
+                  <output id="valorTotal">R$ 0,00</output>
+                </div>
               </div>
             </div>
-          </section>
-
-
-          <section class="form-section payment-section">
-            <h2>Forma de pagamento</h2>
             <div class="payment-options" role="radiogroup" aria-label="Forma de pagamento">
               <label class="payment-card">
                 <input type="radio" name="formaPagamento" value="boleto" />
@@ -366,6 +363,14 @@
                 </div>
               </div>
             </div>
+
+            <p class="payment-note">
+              Atesto para os devidos fins ou aquém interessar, que essas informações são verídicas. 
+              Da mesma forma que autorizo o SINDPOL/PA a proceder com os meios legais para fazer a cobrança 
+              por meio da via de pagamento que escolhi para prosseguir com a assinatura deste contrato de 
+              plano/benefício.
+            </p>
+
           </section>
           <section class="form-actions">
             <button class="btn btn-primary submit-btn" type="submit">

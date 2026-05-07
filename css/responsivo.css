@@ -96,3 +96,10 @@
     grid-template-columns: 1fr;
   }
 }
+
+@media (max-width: 768px) {
+  .payment-title-row .percentage-box {
+    margin-left: 0;
+    justify-content: flex-start;
+  }
+}
