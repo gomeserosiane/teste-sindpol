@@ -15,7 +15,7 @@
   <main class="welcome-screen" id="welcome-screen">
     <section class="welcome-card">
       <div class="welcome-header">
-        <img alt="Cabeçalho inicial" class="welcome-header-image" src="img/logoinicial.png" />
+        <img alt="Cabeçalho inicial" class="welcome-header-image" src="img/hero.png" />
       </div>
       <div class="welcome-hero">
         <h1>CLUBE DE BENEFÍCIOS SINDPOL</h1>
@@ -24,9 +24,9 @@
       <div id="form-wrapper">
         <form class="form-page active-form" id="cadastroForm1">
 
-          <section class="form-section component-section">
+          <section class="form-section proponent-section">
             <div class="section-title-row">
-              <h2>Dados do Componente</h2>
+              <h2>Dados do Proponente Titular</h2>
               <button class="btn btn-value valor-pessoa-btn" type="button" disabled>Valor por pessoa: R$ 40,00</button>
             </div>
             <div class="grid">
@@ -49,7 +49,6 @@
                   <option value="Feminino">Feminino</option>
                   <option value="Masculino">Masculino</option>
                   <option value="Outro">Outro</option>
-                  <option value="Prefiro não responder">Prefiro não responder</option>
                 </select>
               </div>
               <div class="field">
@@ -57,7 +56,7 @@
                 <input id="f1_admissao" name="admissao" type="date" />
               </div>
               <div class="field">
-                <label for="f1_nascimento">Data do nascimento:</label>
+                <label for="f1_nascimento">Data de nascimento:</label>
                 <input id="f1_nascimento" name="nascimento" type="date" />
               </div>
               <div class="field">
@@ -154,7 +153,6 @@
                   <option value="Feminino">Feminino</option>
                   <option value="Masculino">Masculino</option>
                   <option value="Outro">Outro</option>
-                  <option value="Prefiro não responder">Prefiro não responder</option>
                 </select>
               </div>
               <div class="field">
@@ -162,7 +160,7 @@
                 <input id="pagador_admissao" name="pagador_admissao" type="date" />
               </div>
               <div class="field">
-                <label for="pagador_nascimento">Data do nascimento:</label>
+                <label for="pagador_nascimento">Data de nascimento:</label>
                 <input id="pagador_nascimento" name="pagador_nascimento" type="date" />
               </div>
               <div class="field">
@@ -238,12 +236,13 @@
             </div>
           </section>
           <section class="form-section">
-            <h2>Dados dos Componentes Adicionais</h2>
-            <div id="componentes-container"></div>
-            <button class="btn btn-secondary" id="addComponenteBtn" type="button">
-              + Adicionar Componente
+            <h2>Dados dos Proponentes Vinculados</h2>
+            <div id="proponentes-container"></div>
+            <button class="btn btn-secondary" id="addProponenteBtn" type="button">
+              + Adicionar Proponente
             </button>
           </section>
+
           <section class="form-section total-section">
             <h2>Valor total</h2>
             <div class="percentage-box">
@@ -256,24 +255,147 @@
               </div>
             </div>
           </section>
+
+
+          <section class="form-section payment-section">
+            <h2>Forma de pagamento</h2>
+            <div class="payment-options" role="radiogroup" aria-label="Forma de pagamento">
+              <label class="payment-card">
+                <input type="radio" name="formaPagamento" value="boleto" />
+                <span>Boleto</span>
+              </label>
+              <label class="payment-card">
+                <input type="radio" name="formaPagamento" value="cartao_credito" />
+                <span>Cartão de crédito</span>
+              </label>
+              <label class="payment-card">
+                <input type="radio" name="formaPagamento" value="debito_conta" />
+                <span>Débito em conta</span>
+              </label>
+              <label class="payment-card">
+                <input type="radio" name="formaPagamento" value="desconto_folha" />
+                <span>Desconto em folha de pagamento</span>
+              </label>
+            </div>
+
+            <div class="payment-details" id="pagamento-boleto" data-payment-panel="boleto" hidden>
+              <h3>Boleto</h3>
+              <div class="grid">
+                <div class="field full">
+                  <label>Escolha o melhor dia para pagamento:</label>
+                  <div class="radio-inline-group">
+                    <label><input type="radio" name="boletoDia" value="5" /> Dia 5</label>
+                    <label><input type="radio" name="boletoDia" value="10" /> Dia 10</label>
+                    <label><input type="radio" name="boletoDia" value="15" /> Dia 15</label>
+                    <label><input type="radio" name="boletoDia" value="20" /> Dia 20</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="payment-details" id="pagamento-cartao" data-payment-panel="cartao_credito" hidden>
+              <h3>Cartão de crédito</h3>
+              <div class="grid">
+                <div class="field full">
+                  <label for="cartao_nome">Nome impresso no cartão:</label>
+                  <input id="cartao_nome" name="cartao_nome" type="text" autocomplete="cc-name" />
+                </div>
+                <div class="field full">
+                  <label for="cartao_numero">Número do cartão:</label>
+                  <input id="cartao_numero" name="cartao_numero" type="text" inputmode="numeric"
+                    autocomplete="cc-number" />
+                </div>
+                <div class="field">
+                  <label for="cartao_validade">Validade:</label>
+                  <input id="cartao_validade" name="cartao_validade" type="text" placeholder="MM/AA"
+                    autocomplete="cc-exp" />
+                </div>
+                <div class="field">
+                  <label for="cartao_cvv">CVV:</label>
+                  <input id="cartao_cvv" name="cartao_cvv" type="text" inputmode="numeric" maxlength="4"
+                    autocomplete="cc-csc" />
+                </div>
+              </div>
+            </div>
+
+            <div class="payment-details" id="pagamento-debito" data-payment-panel="debito_conta" hidden>
+              <h3>Débito em conta</h3>
+              <div class="grid">
+                <div class="field">
+                  <label for="debito_tipo_conta">Tipo de conta:</label>
+                  <select id="debito_tipo_conta" name="debito_tipo_conta">
+                    <option value="">Selecione</option>
+                    <option value="Conta corrente">Conta corrente</option>
+                    <option value="Conta poupança">Conta poupança</option>
+                    <option value="Conta salário">Conta salário</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="debito_banco">Banco:</label>
+                  <input id="debito_banco" name="debito_banco" type="text" />
+                </div>
+                <div class="field">
+                  <label for="debito_agencia">Agência:</label>
+                  <input id="debito_agencia" name="debito_agencia" type="text" />
+                </div>
+                <div class="field">
+                  <label for="debito_conta">Conta:</label>
+                  <input id="debito_conta" name="debito_conta" type="text" />
+                </div>
+              </div>
+            </div>
+
+            <div class="payment-details" id="pagamento-folha" data-payment-panel="desconto_folha" hidden>
+              <h3>Desconto em folha de pagamento</h3>
+              <div class="grid">
+                <div class="field">
+                  <label for="folha_matricula">N° da matrícula:</label>
+                  <input id="folha_matricula" name="folha_matricula" type="text" />
+                </div>
+                <div class="field">
+                  <label for="folha_orgao">Nome do órgão:</label>
+                  <input id="folha_orgao" name="folha_orgao" type="text" />
+                </div>
+                <div class="field full">
+                  <label>Esfera do órgão:</label>
+                  <div class="radio-inline-group">
+                    <label><input type="radio" name="folha_esfera" value="Federal" /> Federal</label>
+                    <label><input type="radio" name="folha_esfera" value="Estadual" /> Estadual</label>
+                    <label><input type="radio" name="folha_esfera" value="Municipal" /> Municipal</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
           <section class="form-actions">
             <button class="btn btn-primary submit-btn" type="submit">
               Enviar formulário
             </button>
           </section>
-          <section class="manual-sign-footer form-manual-footer">
-            <div class="manual-sign-item">
-              <div class="manual-sign-line"></div>
-              <div class="manual-sign-label">SINDICALIZADO (A)</div>
-            </div>
-            <div class="manual-sign-item">
-              <div class="manual-sign-line"></div>
-              <div class="manual-sign-label">
-                <span class="sind-red">SIND</span><span class="pol-bold">POL</span><span>/PA</span>
-              </div>
-            </div>
-          </section>
+
+
         </form>
+        <footer class="site-footer">
+          <div class="footer-column">
+            <p><strong>SINDPOL/PA</strong></p>
+            <p>Clube de Benefícios SINDPOL.</p>
+            <p>Atendimento ao sindicalizado e familiares.</p>
+            <p>CNPJ: 63.846.331/0001-67</p>
+            <p>Belém/PA - Brasil.</p>
+          </div>
+          <div class="footer-column">
+            <p><strong>Plano Odontológico e Mais Blue</strong></p>
+            <p>Cadastro digital com assinatura eletrônica.</p>
+            <p>Processo rápido, seguro e organizado.</p>
+          </div>
+          <div class="footer-column">
+            <p><strong>Contato</strong></p>
+            <p>(91) 3250-6147</p>
+            <p>hti.sindpol.pa@gmail.com</p>
+            <p>swami@tiejuris.com.br</p>
+            <p>gomes852@hotmail.com</p>
+          </div>
+        </footer>
       </div>
 
     </section>

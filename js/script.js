@@ -2,12 +2,14 @@
 // ELEMENTOS DOM
 // ===============================
 const form1 = document.getElementById("cadastroForm1");
-const componentesContainer = document.getElementById("componentes-container");
-const addComponenteBtn = document.getElementById("addComponenteBtn");
+const proponentesContainer = document.getElementById("proponentes-container");
+const addProponenteBtn = document.getElementById("addProponenteBtn");
 const gerarTotalBtn = document.getElementById("gerarTotalBtn");
 const valorTotalOutput = document.getElementById("valorTotal");
 const dadosPagadorSection = document.getElementById("dados-pagador-section");
 const submitBtn = document.querySelector(".submit-btn");
+const formaPagamentoRadios = document.querySelectorAll('input[name="formaPagamento"]');
+const paymentPanels = document.querySelectorAll("[data-payment-panel]");
 
 const VALOR_POR_PESSOA = 40;
 let pagadorAlertShown = false;
@@ -132,41 +134,41 @@ document.getElementById("f1_cep")?.addEventListener("blur", (event) => buscarCEP
 document.getElementById("pagador_cep")?.addEventListener("blur", (event) => buscarCEP(event.target.value, "pagador"));
 
 // ===============================
-// COMPONENTES ADICIONAIS
+// PROPONENTES ADICIONAIS
 // ===============================
-function atualizarOrdemComponentes() {
-  const cards = [...document.querySelectorAll(".componente-card")];
+function atualizarOrdemProponentes() {
+  const cards = [...document.querySelectorAll(".proponente-card")];
 
   cards.forEach((card, index) => {
     const number = index + 1;
     card.dataset.index = String(number);
-    card.querySelector(".componente-title").textContent = `Componente ${number}`;
+    card.querySelector(".proponente-title").textContent = `Proponente ${number}`;
 
     card.querySelectorAll("input").forEach((input) => {
       const field = input.dataset.field;
-      input.id = `componente_${field}_${number}`;
-      input.name = `componente_${field}_${number}`;
+      input.id = `proponente_${field}_${number}`;
+      input.name = `proponente_${field}_${number}`;
     });
 
     card.querySelectorAll("label").forEach((label) => {
       const field = label.dataset.field;
-      label.setAttribute("for", `componente_${field}_${number}`);
+      label.setAttribute("for", `proponente_${field}_${number}`);
     });
   });
 }
 
-function criarComponenteCard() {
-  const number = document.querySelectorAll(".componente-card").length + 1;
+function criarProponenteCard() {
+  const number = document.querySelectorAll(".proponente-card").length + 1;
   const card = document.createElement("div");
-  card.className = "componente-card";
+  card.className = "proponente-card";
   card.dataset.index = String(number);
 
   card.innerHTML = `
-    <div class="componente-top">
-      <span class="componente-title">Componente ${number}</span>
-      <div class="componente-actions">
+    <div class="proponente-top">
+      <span class="proponente-title">Proponente ${number}</span>
+      <div class="proponente-actions">
         <button class="btn btn-value valor-pessoa-btn" type="button" disabled>Valor por pessoa: R$ 40,00</button>
-        <button type="button" class="btn btn-danger delete-btn" aria-label="Excluir componente">
+        <button type="button" class="btn btn-danger delete-btn" aria-label="Excluir proponente">
           🗑 Excluir
         </button>
       </div>
@@ -174,25 +176,25 @@ function criarComponenteCard() {
 
     <div class="grid">
       <div class="field full">
-        <label data-field="nome" for="componente_nome_${number}">Nome:</label>
-        <input data-field="nome" type="text" id="componente_nome_${number}" name="componente_nome_${number}" />
+        <label data-field="nome" for="proponente_nome_${number}">Nome:</label>
+        <input data-field="nome" type="text" id="proponente_nome_${number}" name="proponente_nome_${number}" />
       </div>
 
       <div class="field">
-        <label data-field="cpf" for="componente_cpf_${number}">CPF:</label>
-        <input data-field="cpf" type="text" id="componente_cpf_${number}" name="componente_cpf_${number}" />
+        <label data-field="cpf" for="proponente_cpf_${number}">CPF:</label>
+        <input data-field="cpf" type="text" id="proponente_cpf_${number}" name="proponente_cpf_${number}" />
       </div>
 
       <div class="field">
-        <label data-field="nascimento" for="componente_nascimento_${number}">Data de nascimento:</label>
-        <input data-field="nascimento" type="date" id="componente_nascimento_${number}" name="componente_nascimento_${number}" />
+        <label data-field="nascimento" for="proponente_nascimento_${number}">Data de nascimento:</label>
+        <input data-field="nascimento" type="date" id="proponente_nascimento_${number}" name="proponente_nascimento_${number}" />
       </div>
     </div>
   `;
 
   card.querySelector(".delete-btn").addEventListener("click", () => {
     card.remove();
-    atualizarOrdemComponentes();
+    atualizarOrdemProponentes();
     gerarValorTotal();
   });
 
@@ -200,13 +202,13 @@ function criarComponenteCard() {
     event.target.value = formatCPF(event.target.value);
   });
 
-  componentesContainer?.appendChild(card);
-  atualizarOrdemComponentes();
+  proponentesContainer?.appendChild(card);
+  atualizarOrdemProponentes();
   gerarValorTotal();
 }
 
-function getComponentesAdicionais() {
-  return [...document.querySelectorAll(".componente-card")].map((card, index) => ({
+function getProponentesAdicionais() {
+  return [...document.querySelectorAll(".proponente-card")].map((card, index) => ({
     numero: index + 1,
     nome: card.querySelector('[data-field="nome"]')?.value?.trim() || "",
     cpf: card.querySelector('[data-field="cpf"]')?.value?.trim() || "",
@@ -215,14 +217,14 @@ function getComponentesAdicionais() {
   }));
 }
 
-addComponenteBtn?.addEventListener("click", () => {
-  criarComponenteCard();
+addProponenteBtn?.addEventListener("click", () => {
+  criarProponenteCard();
 });
 
 // ===============================
 // DADOS DO RESPONSÁVEL FINANCEIRO
 // ===============================
-function copiarDadosComponenteParaPagador() {
+function copiarDadosProponenteParaPagador() {
   const map = {
     pagador_nome: "f1_nome",
     pagador_rg: "f1_rg",
@@ -244,8 +246,8 @@ function copiarDadosComponenteParaPagador() {
     pagador_situacaoFuncional: "f1_situacaoFuncional",
   };
 
-  Object.entries(map).forEach(([pagadorId, componenteId]) => {
-    setFieldValue(pagadorId, getFieldValue(componenteId));
+  Object.entries(map).forEach(([pagadorId, proponenteId]) => {
+    setFieldValue(pagadorId, getFieldValue(proponenteId));
   });
 }
 
@@ -263,7 +265,7 @@ function mostrarAlertaPagador() {
     <div class="payer-alert-card" role="dialog" aria-modal="true">
       <p>Deseja utilizar os mesmos dados já preenchidos?</p>
       <div class="payer-alert-actions">
-        <button type="button" class="btn btn-success" id="usarDadosComponenteBtn">Sim</button>
+        <button type="button" class="btn btn-success" id="usarDadosProponenteBtn">Sim</button>
         <button type="button" class="btn btn-danger" id="preencherManualBtn">Não</button>
       </div>
     </div>
@@ -271,8 +273,8 @@ function mostrarAlertaPagador() {
 
   document.body.appendChild(overlay);
 
-  document.getElementById("usarDadosComponenteBtn")?.addEventListener("click", () => {
-    copiarDadosComponenteParaPagador();
+  document.getElementById("usarDadosProponenteBtn")?.addEventListener("click", () => {
+    copiarDadosProponenteParaPagador();
     fecharAlertaPagador();
   });
 
@@ -280,6 +282,71 @@ function mostrarAlertaPagador() {
 }
 
 dadosPagadorSection?.addEventListener("focusin", mostrarAlertaPagador);
+
+
+// ===============================
+// FORMA DE PAGAMENTO
+// ===============================
+function getCheckedValue(name) {
+  return document.querySelector(`input[name="${name}"]:checked`)?.value || "";
+}
+
+function atualizarPainelPagamento() {
+  const formaSelecionada = getCheckedValue("formaPagamento");
+
+  paymentPanels.forEach((panel) => {
+    const isActive = panel.dataset.paymentPanel === formaSelecionada;
+    panel.hidden = !isActive;
+
+    if (!isActive) {
+      panel.querySelectorAll("input, select, textarea").forEach((field) => {
+        if (field.type === "radio" || field.type === "checkbox") field.checked = false;
+        else field.value = "";
+      });
+    }
+  });
+}
+
+function getFormaPagamento() {
+  const forma = getCheckedValue("formaPagamento");
+
+  return {
+    forma,
+    boleto: {
+      melhorDiaPagamento: getCheckedValue("boletoDia"),
+    },
+    cartaoCredito: {
+      nomeImpresso: getFieldValue("cartao_nome"),
+      numero: getFieldValue("cartao_numero"),
+      validade: getFieldValue("cartao_validade"),
+      cvv: getFieldValue("cartao_cvv"),
+    },
+    debitoConta: {
+      tipoConta: getFieldValue("debito_tipo_conta"),
+      banco: getFieldValue("debito_banco"),
+      agencia: getFieldValue("debito_agencia"),
+      conta: getFieldValue("debito_conta"),
+    },
+    descontoFolha: {
+      matricula: getFieldValue("folha_matricula"),
+      orgao: getFieldValue("folha_orgao"),
+      esfera: getCheckedValue("folha_esfera"),
+    },
+  };
+}
+
+function resetarFormaPagamento() {
+  document.querySelectorAll('input[name="formaPagamento"], input[name="boletoDia"], input[name="folha_esfera"]').forEach((field) => {
+    field.checked = false;
+  });
+  paymentPanels.forEach((panel) => {
+    panel.hidden = true;
+  });
+}
+
+formaPagamentoRadios.forEach((radio) => {
+  radio.addEventListener("change", atualizarPainelPagamento);
+});
 
 // ===============================
 // VALOR TOTAL
@@ -310,7 +377,7 @@ function getFormDataObject() {
     enviadoEm: new Date().toISOString(),
     valorPorPessoa: VALOR_POR_PESSOA,
     valorTotal: gerarValorTotal(),
-    dadosComponente: {
+    dadosProponente: {
       nome: getFieldValue("f1_nome"),
       rg: getFieldValue("f1_rg"),
       cpf: getFieldValue("f1_cpf"),
@@ -350,7 +417,8 @@ function getFormDataObject() {
       lotacao: getFieldValue("pagador_lotacao"),
       situacaoFuncional: getFieldValue("pagador_situacaoFuncional"),
     },
-    componentesAdicionais: getComponentesAdicionais(),
+    proponentesAdicionais: getProponentesAdicionais(),
+    formaPagamento: getFormaPagamento(),
   };
 }
 
@@ -389,8 +457,9 @@ async function processarEnvio(event) {
 
     alert("Formulário enviado com sucesso! O documento foi encaminhado para assinatura digital.");
     form1.reset();
-    if (componentesContainer) componentesContainer.innerHTML = "";
+    if (proponentesContainer) proponentesContainer.innerHTML = "";
     if (valorTotalOutput) valorTotalOutput.textContent = formatCurrencyBR(0);
+    resetarFormaPagamento();
   } catch (error) {
     console.error("Erro no envio:", error);
     alert(error.message || "Erro ao enviar formulário. Tente novamente.");
@@ -408,6 +477,7 @@ form1?.addEventListener("submit", processarEnvio);
 // INICIALIZAÇÃO
 // ===============================
 window.addEventListener("load", () => {
-  if (componentesContainer) componentesContainer.innerHTML = "";
+  if (proponentesContainer) proponentesContainer.innerHTML = "";
   if (valorTotalOutput) valorTotalOutput.textContent = formatCurrencyBR(0);
+  resetarFormaPagamento();
 });

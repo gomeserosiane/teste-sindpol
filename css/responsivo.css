@@ -30,11 +30,6 @@
         margin: -18px -18px 18px -18px;
     }
 
-    .form-manual-footer {
-        padding: 100px 28px 10px;
-        gap: 80px;
-    }
-
     .welcome-card {
         width: 100%;
     }
@@ -47,26 +42,9 @@
         font-size: 1.7rem;
     }
 
-    .componente-top {
+    .proponente-top {
         flex-direction: column;
         align-items: stretch;
-    }
-
-    .form-manual-footer {
-        padding: 120px 18px 6px;
-        gap: 100px;
-    }
-
-    .section-banner {
-        margin: 0 -18px 18px -18px;
-    }
-
-    .section-banner-content h1 {
-        font-size: 1.35rem;
-    }
-
-    .section-banner-image {
-        height: 150px;
     }
 }
 @media (max-width: 560px) {
@@ -101,12 +79,20 @@
     width: 100%;
   }
 
-  .componente-actions {
+  .proponente-actions {
     width: 100%;
     justify-content: stretch;
   }
 
-  .componente-actions .btn {
+  .proponente-actions .btn {
     flex: 1 1 180px;
+  }
+}
+
+
+@media (max-width: 900px) {
+  .payment-options,
+  .site-footer {
+    grid-template-columns: 1fr;
   }
 }
